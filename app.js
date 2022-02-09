@@ -4,14 +4,14 @@ const port = process.env.PORT || 3000
 const mongoose = require('mongoose');
 const e = require('express');
 const app = express();
+// mongoose.connect('mongodb://localhost:27017/loan-api-db')
 mongoose.connect("mongodb+srv://shashank:shashank@cluster0.7nozi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
-//To use static html files in the node server
+//To use static html files over the node server
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }))
-
 
 //Schema of product
 const productSchema = {
@@ -24,17 +24,20 @@ const productSchema = {
     updatedBy: String,
 }
 
+//mongoose model
 const Product = mongoose.model('Proudct', productSchema)
 const emiCalculator = (product) => {
     return product.productPrice
 }
 
+//get request for home route
 app.get('/', (req, res) => {
     res.send('index')
 })
 
-
+//common route '/products'
 app.route('/products')
+    //get reuqest for '/products'
     .get((req, res) => {
         Product.find((err, foundProducts) => {
             if (!err)
@@ -43,6 +46,7 @@ app.route('/products')
                 res.send(err)
         })
     })
+    //post request for './products'
     .post((req, res) => {
         // console.log(req.body);
         const product = new Product({
@@ -58,6 +62,7 @@ app.route('/products')
         product.save()
         res.send(req.body)
     })
+    //delete request for '/products'
     .delete((req, res) => {
         Product.deleteMany((err) => {
             if (!err) {
@@ -76,7 +81,8 @@ app.route('/products/:productId')
             if (!err) {
                 res.send(foundProduct)
             } else {
-                res.send(ReferenceError)
+                console.log(err);
+                res.send(err)
             }
         })
     })
