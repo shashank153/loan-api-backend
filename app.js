@@ -30,6 +30,10 @@ const emiCalculator = (product) => {
     return product.productPrice
 }
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+})
+
 //get request for home route
 app.get('/', (req, res) => {
     res.send('index')
