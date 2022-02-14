@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Loan api project with node js",
   "private":true,
-  "Access-Control-Allow-Origin": "https://localhost:4200",
+  "proxy":"http://localhost:4200",
   "main": "index.js",
   "scripts": {
     "start": "node app",
