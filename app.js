@@ -12,6 +12,10 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+    next()
+})
 
 //Schema of product
 const productSchema = {
@@ -30,9 +34,6 @@ const emiCalculator = (product) => {
     return product.productPrice
 }
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-})
 
 //get request for home route
 app.get('/', (req, res) => {
