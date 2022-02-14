@@ -80,6 +80,21 @@ app.route('/products')
             }
         })
     })
+    .put((req, res) => {
+        // console.log(req.body);
+        const product = new Product({
+            productId: req.body.productId,
+            productName: req.body.productName,
+            productPrice: req.body.productPrice,
+            rateOfInterest: req.body.rateOfInterest,
+            tenure: req.body.tenure,
+            createdBy: req.body.createdBy,
+            updatedBy: req.body.updatedBy
+        })
+        console.log(product);
+        product.save()
+        res.send(req.body)
+    })
 
 app.route('/products/:productId')
     .get((req, res) => {
